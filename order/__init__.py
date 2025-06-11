@@ -1,1 +1,2 @@
-from .order_serializer import OrderSerializer
+
+default_app_config = 'order.apps.OrderConfig'

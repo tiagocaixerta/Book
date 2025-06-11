@@ -1,15 +1,15 @@
+# order/serializers/order_serializer.py
 from rest_framework import serializers
-
-from product.models import Product
-from product.serializers.product_serializers import ProductSerializer 
+from product.serializers.product_serializers import ProductSerializer
+from order.models.order import Order
 
 class OrderSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(required=True, many=True)
+    products = ProductSerializer(many=True, read_only=True)
     total = serializers.SerializerMethodField()
 
     def get_total(self, instance):
-        total = sum([product.price for product in instance.product.all()])
-        return total
+        return sum(product.price for product in instance.products.all())
+
     class Meta:
-        model = Product
-        fields = ['product', 'total']
+        model = Order
+        fields = ['products', 'total']

@@ -1,1 +1,1 @@
-from order.serializers import OrderSerializer
+from .order_serializer import OrderSerializer

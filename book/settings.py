@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "order",
     "product",
-    "rest_framework",
+    "debug_toolbar", 
+    "rest_framework",  
     "rest_framework.authtoken",
 ]
 
@@ -144,7 +145,12 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
 }
+
 
 INTERNAL_IPS = [
     "127.0.0.1",

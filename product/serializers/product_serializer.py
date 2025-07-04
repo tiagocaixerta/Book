@@ -1,19 +1,13 @@
 from rest_framework import serializers
-
 from product.models.product import Category, Product
 from product.serializers.category_serializer import CategorySerializer
-
 
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True, many=True)
     categories_id = serializers.PrimaryKeyRelatedField(
-
         queryset=Category.objects.all(),
         write_only=True,
         many=True
-
-        queryset=Category.objects.all(), write_only=True, many=True
-
     )
 
     class Meta:
@@ -24,13 +18,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "active",
-
-            "category",         # leitura
-            "categories_id",    # escrita
-
-            "category",
-            "categories_id",
-
+            "category",        # leitura
+            "categories_id",   # escrita
         ]
 
     def create(self, validated_data):
@@ -41,7 +30,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         category_data = validated_data.pop("categories_id", None)
-
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
@@ -55,10 +43,3 @@ class ProductSerializer(serializers.ModelSerializer):
         if not value:
             raise serializers.ValidationError("Você deve escolher ao menos uma categoria.")
         return value
-
-        product = Product.objects.create(**validated_data)
-        for category in category_data:
-            product.category.add(category)
-
-        return product
-

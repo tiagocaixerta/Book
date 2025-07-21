@@ -1,29 +1,11 @@
-import factory
-from django.contrib.auth.models import User
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter  
 
-from order.models import Order
-from product.factories import ProductFactory
+from order.viewsets import OrderViewSet
 
+router = DefaultRouter()
+router.register(r"order", OrderViewSet, basename="order")
 
-class UserFactory(factory.django.DjangoModelFactory):
-    email = factory.Faker("pystr")
-    username = factory.Faker("pystr")
-
-    class Meta:
-        model = User
-
-
-class OrderFactory(factory.django.DjangoModelFactory):
-    user = factory.SubFactory(UserFactory)
-
-    @factory.post_generation
-    def product(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for product in extracted:
-                self.product.add(product)
-
-    class Meta:
-        model = Order
+urlpatterns = [
+    path("", include(router.urls)),
+]

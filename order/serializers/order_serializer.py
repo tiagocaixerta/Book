@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from order.models import Order
 from product.models import Product
-from product.serializers.product_serializer import ProductSerializer
+from product.serializers import ProductSerializer  # <- corrigido aqui
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -30,4 +30,3 @@ class OrderSerializer(serializers.ModelSerializer):
             order.product.add(product)
 
         return order
-    

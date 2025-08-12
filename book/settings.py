@@ -88,7 +88,7 @@ DATABASES = {
         "NAME": os.getenv("DATABASE_NAME", "bookdb"),
         "USER": os.getenv("DATABASE_USER", "bookuser"),
         "PASSWORD": os.getenv("DATABASE_PASSWORD", "bookpass"),
-        "HOST": os.getenv("DATABASE_HOST", "localhost"),
+        "HOST": os.getenv("DATABASE_HOST", "db"),  # Ajustado para usar o serviço 'db' do Docker Compose
         "PORT": os.getenv("DATABASE_PORT", "5432"),
     }
 }
